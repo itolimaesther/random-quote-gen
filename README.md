@@ -1,3 +1,5 @@
+This is a quote generator application. It generate a random quote with author name and genre. It also gives a list of quotes from a particular author
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
