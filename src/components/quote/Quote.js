@@ -11,7 +11,7 @@ function Quote({text, author, genre}) {
     `;
 
     return (
-        <div className="quote-container">
+        <div className="quote-wraper">
             <div className="quote" id="quote">
             <div className="quote-block">
                 <div className="strip accent-dark"></div>

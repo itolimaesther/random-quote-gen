@@ -3,8 +3,10 @@ import './App.css';
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Quote from './components/quote/Quote'
-// import Author from './components/quote/Quote'
+import LoadingScreen from './components/loader/LoadingScreen'
+import Loader from './components/loader/Loader'
 import axios from 'axios'
+import { motion } from 'framer-motion';
 
 function App() {
   const url = 'https://quote-garden.herokuapp.com/api/v3/quotes/random'
@@ -12,6 +14,7 @@ function App() {
 
   const [ random, setRandom ] = useState(false);
   const [ quote, setQuote ] = useState(null);
+  const [ loading, setLoading ] = useState(true);
 
   function handleRandom() {
     window.location.reload();
@@ -27,6 +30,7 @@ function App() {
 
     return () => { 
       setRandom(false);
+      setLoading(false);
     }
   }, [url])
 
@@ -36,8 +40,14 @@ function App() {
     handleRandom();
   }
 
+  if(loading && !quote){
+    return [
+    (<LoadingScreen />),
+    setLoading(false)]
+  }
+
   return (
-    <div className="App">
+    <motion.div className="App">
       <Header handleRandom={handleRandom} />
 
       <main>
@@ -46,13 +56,12 @@ function App() {
           <Quote text={quote.quoteText} setRandom={setRandom} 
               author={quote.quoteAuthor} genre={quote.quoteGenre} />
           </>
-        ): (console.log("hellooo"))}
+        ): (<Loader message="Randomizing"/>)}
 
-        {/* <Author fullname={quote.author} genre={quote.genre} /> */}
       </main>
 
       <Footer />
-    </div>
+    </motion.div>
   );
 }
 
